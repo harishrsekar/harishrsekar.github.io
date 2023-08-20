@@ -69,7 +69,7 @@ class MyHomePage extends StatelessWidget {
               Wrap(
                 spacing: 8.0,
                 children: const [
-                  Chip(label: Text('Flutter')),
+                  Chip(label: Text('Fluttery')),
                   Chip(label: Text('Dart')),
                   Chip(label: Text('UI/UX Design')),
                   // Add more skills here

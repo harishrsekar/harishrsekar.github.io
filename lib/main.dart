@@ -1,172 +1,139 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyPortfolioApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyPortfolioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Resume Portfolio',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color(0xFF121212),
+      title: 'Harish Sekar Portfolio',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        brightness: Brightness.light, // Light mode as default
       ),
-      home: MyHomePage(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark, // Dark mode settings
+      ),
+      themeMode: ThemeMode.system, // Enable system-level light/dark mode
+      home: PortfolioScreen(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  var size,height,width;
-
+class PortfolioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
-    height = size.height;
-    width = size.width;
-
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Resume Portfolio'),
-      ),
+      //appBar: AppBar(title: const Text('Harish Sekar Portfolio')),
       body: SingleChildScrollView(
-        child: Container(decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage("https://w0.peakpx.com/wallpaper/656/197/HD-wallpaper-network-connections-interlacing-dark.jpg"))),
-          width: 800.0,
-          padding: const EdgeInsets.all(24.0),
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.deepPurpleAccent, // Adjust based on your theme
+                Colors.black, // Adjust based on your theme
+              ],
+            ),
+          ),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GradientContainer(child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.purpleAccent, Colors.deepPurple],
-                        ),
-                        borderRadius: BorderRadius.circular(100.0),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [const SizedBox(height: 20),
+              const CircleAvatar(
+                radius: 100,
+                backgroundImage: NetworkImage(
+                  'https://media.licdn.com/dms/image/D5603AQEpGCXSCZ5Ijg/profile-displayphoto-shrink_400_400/0/1672243651001?e=1698278400&v=beta&t=-TZnqmlbspNaI4x5qr1pKgCtH791qeV3gGUwlXIlpXc', // Replace with your image URL
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Harish Sekar',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Education',
+                style: TextStyle(fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.double),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  EducationBox(
+                    institution: 'SRM Institute of Science and Technology',
+                    degree: 'Bachelor of Technology, Electronics and Communication Engineering',
+                    year: '2022-2026',
+                  ),
+                  const SizedBox(width: 10),
+                  EducationBox(
+                    institution: "Swamy's Higher Secondary School",
+                    degree: 'Computer Science',
+                    year: '2022',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Skills',
+                style: TextStyle(fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.double),
+              ),
+              const SizedBox(height: 10),
+              SkillRow(
+                skills: ['Flutter',"Python","Arduino","RaspberryPI","PCB Design", 'Dart', 'UI/UX Design', 'Firebase'],
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Projects',
+                style: TextStyle(fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.double),
+              ),
+              const SizedBox(height: 10),
+              Column(
+                children: [
+                  ProjectsRow(
+                    projects: [
+                      ProjectTile(
+                        title: 'Disease detection using VGG16 Convolutional Neural Network(CNN) model',
+                        description: 'Created a CNN-VGG16 model in python, that can be trained to diagnose diseases in plants and animals.',
                       ),
-                      child: const CircleAvatar(
-                        radius: 80.0,
-                        backgroundImage: NetworkImage('https://media.licdn.com/dms/image/D5603AQEpGCXSCZ5Ijg/profile-displayphoto-shrink_400_400/0/1672243651001?e=1698278400&v=beta&t=-TZnqmlbspNaI4x5qr1pKgCtH791qeV3gGUwlXIlpXc'),
+                      ProjectTile(
+                        title: 'Flutter widgets trivia - Alexa Skill',
+                        description: 'Created an Alexa skill using Python that reads out random useful flutter widgets and the method they can be used in.',
                       ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    GradientText(
-                      text: 'Harish Sekar',
-                      fontSize: 48.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Georgia',
-                    ),
-                    Text(
-                      'Mobile App Developer',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        color: Colors.grey[400],
+                      ProjectTile(
+                        title: 'Earthquake Alert mobile application',
+                        description: 'Flutter-based Android mobile application that alerts users of any earthquake or tremors in their vicinity, using publicly available APIs',
                       ),
-                    ),
-
-                  ],
-
-                ),
+                      ProjectTile(
+                        title: 'RFID Attendance logger',
+                        description: 'Attendance logger using Arduino, RFID module and Bluetooth module.',
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(height: 32.0),
-              GradientContainer(
-                child: Column(
-                  children: [
-                    SectionTitle('About Me'),
-                    const SizedBox(height: 16.0),
-                    const Text(
-                      'Passionate mobile app developer with expertise in Flutter. I love creating user-friendly and visually appealing applications.',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+              const SizedBox(height: 20),
+              const Text(
+                'Participation',
+                style: TextStyle(fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.double),
               ),
-              const SizedBox(height: 32.0),
-              GradientContainer(
-                child: Column(
-                  children: [
-                    SectionTitle('Skills'),
-                    const SizedBox(height: 16.0),
-                    Wrap(
-                      spacing: 8.0,
-                      children: [
-                        SkillChip('Flutter'),
-                        SkillChip('Dart'),
-                        SkillChip('UI/UX Design'),
-                        // Add more skills here
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 32.0),
-              GradientContainer(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Column(
-                          children: [
-                            SectionTitle('Education'),
-                            const SizedBox(height: 16.0),
-                            EducationItem(
-                              degree: 'Bachelor of Science in Computer Science',
-                              university: 'University of XYZ',
-                              year: '2022',
-                            ),
-                            // Add more education items here
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            SectionTitle('Education'),
-                            const SizedBox(height: 16.0),
-                            EducationItem(
-                              degree: 'Bachelor of Science in Computer Science',
-                              university: 'University of XYZ',
-                              year: '2022',
-                            ),
-                            // Add more education items here
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 32.0),
-              GradientContainer(
-                child: Column(
-                  children: [
-                    SectionTitle('Experience'),
-                    const SizedBox(height: 16.0),
-                    ExperienceItem(
-                      title: 'Mobile App Developer',
-                      company: 'Tech Solutions Inc.',
-                      year: '2022 - Present',
-                    ),
-                    // Add more experience items here
-                  ],
-                ),
-              ),
-              const SizedBox(height: 32.0),
-              GradientContainer(
-                child: Column(
-                  children: [
-                    SectionTitle('Projects'),
-                    const SizedBox(height: 16.0),
-                    ProjectItem(
-                      title: 'Project 1',
-                      description: 'Description of Project 1...',
-                    ),
-                    // Add more project items here
-                  ],
-                ),
+              const SizedBox(height: 10),
+              ParticipationRow(
+                events: const ['SRM Smart Campus Hackathon', 'ENDURO Online Workshop', "Workshops-AWS, Microsoft Azure, GraphQL, REST APIs"],
               ),
             ],
           ),
@@ -176,130 +143,25 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class GradientContainer extends StatelessWidget {
-  final Widget child;
-
-  GradientContainer({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [Colors.deepPurple, Colors.transparent],
-        ),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      padding: const EdgeInsets.all(16.0),
-      child: child,
-    );
-  }
-}
-
-class GradientText extends StatelessWidget {
-  final String text;
-  final double fontSize;
-  final FontWeight fontWeight;
-  final String fontFamily;
-
-  GradientText({
-    required this.text,
-    required this.fontSize,
-    required this.fontWeight,
-    required this.fontFamily,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      shaderCallback: (Rect bounds) {
-        return LinearGradient(
-          colors: [Colors.blue[800]!, Colors.blue[300]!],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ).createShader(bounds);
-      },
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          fontFamily: fontFamily,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-}
-
-class SectionTitle extends StatelessWidget {
-  final String title;
-
-  SectionTitle(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontSize: 32.0,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'Georgia',
-      ),
-    );
-  }
-}
-
-class SkillChip extends StatelessWidget {
-  final String label;
-
-  SkillChip(this.label);
-
-  @override
-  Widget build(BuildContext context) {
-    return Chip(
-      label: Text(label, style: const TextStyle(fontFamily: 'Georgia')),
-      backgroundColor: Colors.blue,
-    );
-  }
-}
-
-class EducationItem extends StatelessWidget {
+class EducationBox extends StatelessWidget {
+  final String institution;
   final String degree;
-  final String university;
   final String year;
 
-  EducationItem({required this.degree, required this.university, required this.year});
+  EducationBox({required this.institution, required this.degree, required this.year});
 
   @override
   Widget build(BuildContext context) {
-    return Card(color: Colors.transparent,
-      elevation: 4.0,
-      margin: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        color: Colors.transparent,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              degree,
-              style: const TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Georgia',
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              university,
-              style: const TextStyle(fontSize: 20.0, fontFamily: 'Georgia'),
-            ),
-            Text(
-              year,
-              style: const TextStyle(fontSize: 20.0, fontFamily: 'Georgia'),
-            ),
+            Text(institution, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text(degree, style:const TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+            Text(year),
           ],
         ),
       ),
@@ -307,79 +169,58 @@ class EducationItem extends StatelessWidget {
   }
 }
 
-class ExperienceItem extends StatelessWidget {
-  final String title;
-  final String company;
-  final String year;
+class SkillRow extends StatelessWidget {
+  final List<String> skills;
 
-  ExperienceItem({required this.title, required this.company, required this.year});
+  SkillRow({required this.skills});
 
   @override
   Widget build(BuildContext context) {
-    return Card(color: Colors.transparent,
-      elevation: 4.0,
-      margin: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Georgia',
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              company,
-              style: const TextStyle(fontSize: 20.0, fontFamily: 'Georgia'),
-            ),
-            Text(
-              year,
-              style: const TextStyle(fontSize: 20.0, fontFamily: 'Georgia'),
-            ),
-          ],
-        ),
-      ),
+    return Wrap(
+      spacing: 10,
+      children: skills.map((skill) => Chip(label: Text(skill))).toList(),
     );
   }
 }
 
-class ProjectItem extends StatelessWidget {
+class ProjectTile extends StatelessWidget {
   final String title;
   final String description;
 
-  ProjectItem({required this.title, required this.description});
+  ProjectTile({required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
-    return Card(color: Colors.transparent,
-      elevation: 4.0,
-      margin: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Georgia',
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              description,
-              style: const TextStyle(fontSize: 20.0, fontFamily: 'Georgia'),
-            ),
-          ],
-        ),
-      ),
+    return ListTile(
+      title: Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      subtitle: Text(description, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+    );
+  }
+}
+
+class ProjectsRow extends StatelessWidget {
+  final List<ProjectTile> projects;
+
+  ProjectsRow({required this.projects});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: projects,
+    );
+  }
+}
+
+class ParticipationRow extends StatelessWidget {
+  final List<String> events;
+
+  ParticipationRow({required this.events});
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 10,
+      children: events.map((event) => Chip(label: Text(event))).toList(),
     );
   }
 }

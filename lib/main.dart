@@ -68,7 +68,7 @@ class PortfolioScreen extends StatelessWidget {
                   EducationBox(
                     institution: 'SRM Institute of Science and Technology',
                     degree: 'Bachelor of Technology, Electronics and Communication Engineering',
-                    year: '2022-2026',
+                    year: '2022 to 2026',
                   ),
                   const SizedBox(width: 10),
                   EducationBox(

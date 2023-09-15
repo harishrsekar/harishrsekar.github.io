@@ -1,6 +1,6 @@
 {
-    "name": "parking_finder_web",
-    "short_name": "parking_finder_web",
+    "name": "eartheats",
+    "short_name": "eartheats",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
